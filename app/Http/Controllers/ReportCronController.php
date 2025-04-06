@@ -119,7 +119,7 @@ class ReportCronController extends Job
         }
 
         $data = $request;
-        $month = 2;
+        $month = 1;
         $year = 2025;
         $data = $this->trafficByMunicipalityYuc_Sitio($data);
 

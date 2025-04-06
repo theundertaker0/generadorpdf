@@ -14,7 +14,7 @@ class GenerarReporteYuc extends Command
     public function handle()
     {
         // Ruta del archivo JSON (ajusta si está en otro lado)
-        $jsonPath = storage_path('app/datos.json');
+        $jsonPath = storage_path('app/datosenero.json');
 
         if (!file_exists($jsonPath)) {
             $this->error('El archivo datos.json no se encontró en storage/app/');
