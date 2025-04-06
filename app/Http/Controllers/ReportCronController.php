@@ -48,11 +48,11 @@ class ReportCronController extends Job
         $this->generateReport_qro();
         $this->generateReportYucSitio();
     }
-    public function generateReportYucSitio()
+    public function generateReportYucSitio($data)
     {
         $output = new ConsoleOutput();
         try {
-            $data = $this->getDataYuc_Sitio();
+           // $data = $this->getDataYuc_Sitio();
             if (empty($data)) {
                 $output->writeln("\033[31m[ERROR]\033[0m No se recibieron datos de Yucatán v2.\n");
                 Log::error('No se recibió del API Yucatán v2');
@@ -118,9 +118,9 @@ class ReportCronController extends Job
             return Log::info('Request array is empty in ReportCronController.php');
         }
 
-        $data = $request['usage'];
-        $month = $request['month'];
-        $year = $request['year'];
+        $data = $request;
+        $month = 2;
+        $year = 2025;
         $data = $this->trafficByMunicipalityYuc_Sitio($data);
 
         $output->writeln("\033[32m[INFO]\033[0m Preparando estilo del documento \033[34m\033[0m");
@@ -407,7 +407,9 @@ class ReportCronController extends Job
 
     private function getTrafficInGigabytes($traffic)
     {
-        return round($traffic / pow(1024, 2), 2);
+        $result = round($traffic / pow(1024, 2), 2);
+        if($result != 0.0) return $result;
+        return '0';
     }
 
     private function getMonthName(int $month): string
